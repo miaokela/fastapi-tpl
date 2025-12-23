@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastapi-base"
+version = "0.1.0"
+description = "FastAPI 基础项目模板，集成 Celery 定时任务管理（类似 django-celery-beat）、JWT 认证、Admin 管理后台"
+authors = [{name = "miaokela", email = "miaokela@example.com"}]
+requires-python = ">=3.8.1"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "celery[redis]>=5.3.0",
+    "redis>=5.0.0",
+    "python-jose[cryptography]>=3.3.0",
+    "python-multipart>=0.0.6",
+    "passlib[bcrypt]>=1.7.4",
+    "bcrypt>=3.2.0,<4.0.0",
+    "python-dotenv>=1.0.0",
+    "pydantic[email]>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "tortoise-orm[asyncpg]>=0.23.0",
+    "ipython>=8.12.3",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.24.0",
+    "httpx>=0.28.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=5.0.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*", "config*", "celery_app*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+line_length = 88

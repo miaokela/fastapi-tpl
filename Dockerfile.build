@@ -1,0 +1,37 @@
+# Dockerfile for PyInstaller build (ARM64 Debian)
+# 用于在 ARM64 架构上打包 FastAPI 应用
+
+FROM --platform=linux/arm64 python:3.11-slim-bookworm
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装 binutils (PyInstaller 需要 objdump)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends binutils && \
+    rm -rf /var/lib/apt/lists/* || true
+
+# 升级 pip 并配置国内镜像
+RUN pip install --upgrade pip && \
+    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 复制 requirements 先安装依赖（利用 Docker 缓存）
+COPY requirements.txt .
+
+# 安装 Python 依赖
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 安装 PyInstaller
+RUN pip install --no-cache-dir pyinstaller
+
+# 复制项目文件
+COPY . .
+
+# 设置输出目录
+RUN mkdir -p /output
+
+# 打包命令
+CMD ["pyinstaller", "--clean", "--noconfirm", \
+     "--distpath=/output", \
+     "--workpath=/tmp/build", \
+     "app.spec"]

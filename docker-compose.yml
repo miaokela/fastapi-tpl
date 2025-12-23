@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  # FastAPI应用
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/fastapi_base
+      - REDIS_URL=redis://:123456@redis:6379/0
+      - CELERY_BROKER_URL=redis://:123456@redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://:123456@redis:6379/2
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  # PostgreSQL数据库
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=fastapi_base
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # Redis缓存和消息队列
+  redis:
+    image: redis:7-alpine
+    command: redis-server --requirepass 123456 --port 6379
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Celery Worker
+  celery-worker:
+    build: .
+    command: celery -A celery_app.celery worker --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/fastapi_base
+      - REDIS_URL=redis://:123456@redis:6379/0
+      - CELERY_BROKER_URL=redis://:123456@redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://:123456@redis:6379/2
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  # Celery Beat (定时任务调度器)
+  celery-beat:
+    build: .
+    command: celery -A celery_app.celery beat --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/fastapi_base
+      - REDIS_URL=redis://:123456@redis:6379/0
+      - CELERY_BROKER_URL=redis://:123456@redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://:123456@redis:6379/2
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  # Flower (Celery监控工具)
+  celery-flower:
+    build: .
+    command: celery -A celery_app.celery flower --port=5555
+    ports:
+      - "5555:5555"
+    environment:
+      - CELERY_BROKER_URL=redis://:123456@redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://:123456@redis:6379/2
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

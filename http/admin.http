@@ -1,0 +1,281 @@
+### FastAPI Base - Admin API 测试
+### 使用说明: 需要安装 VS Code REST Client 扩展
+
+### 变量配置
+@baseUrl = http://localhost:8000
+@apiPrefix = /api/v1
+@adminToken = {{login.response.body.access_token}}
+
+
+# ============================================================================
+# 认证相关
+# ============================================================================
+
+### 用户注册
+# @name register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "email": "admin@example.com",
+    "password": "admin123"
+}
+
+### 用户登录
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin123"
+}
+
+### 获取当前用户信息
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{adminToken}}
+
+
+# ============================================================================
+# 用户管理
+# ============================================================================
+
+### 获取用户列表
+GET {{baseUrl}}{{apiPrefix}}/admin/users?skip=0&limit=20
+Authorization: Bearer {{adminToken}}
+
+### 获取用户列表（带搜索）
+GET {{baseUrl}}{{apiPrefix}}/admin/users?search=admin
+Authorization: Bearer {{adminToken}}
+
+### 获取用户列表（筛选活跃用户）
+GET {{baseUrl}}{{apiPrefix}}/admin/users?is_active=true
+Authorization: Bearer {{adminToken}}
+
+### 创建新用户
+POST {{baseUrl}}{{apiPrefix}}/admin/users
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "email": "testuser@example.com",
+    "password": "test123456",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false
+}
+
+### 获取用户详情
+GET {{baseUrl}}{{apiPrefix}}/admin/users/1
+Authorization: Bearer {{adminToken}}
+
+### 更新用户
+PUT {{baseUrl}}{{apiPrefix}}/admin/users/2
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "is_active": true,
+    "is_staff": true
+}
+
+### 删除用户
+DELETE {{baseUrl}}{{apiPrefix}}/admin/users/2
+Authorization: Bearer {{adminToken}}
+
+
+# ============================================================================
+# 间隔调度管理
+# ============================================================================
+
+### 获取间隔调度列表
+GET {{baseUrl}}{{apiPrefix}}/admin/schedules/intervals
+Authorization: Bearer {{adminToken}}
+
+### 创建间隔调度（每30秒）
+POST {{baseUrl}}{{apiPrefix}}/admin/schedules/intervals
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "every": 30,
+    "period": "seconds"
+}
+
+### 创建间隔调度（每5分钟）
+POST {{baseUrl}}{{apiPrefix}}/admin/schedules/intervals
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "every": 5,
+    "period": "minutes"
+}
+
+### 删除间隔调度
+DELETE {{baseUrl}}{{apiPrefix}}/admin/schedules/intervals/1
+Authorization: Bearer {{adminToken}}
+
+
+# ============================================================================
+# Crontab 调度管理
+# ============================================================================
+
+### 获取 Crontab 调度列表
+GET {{baseUrl}}{{apiPrefix}}/admin/schedules/crontabs
+Authorization: Bearer {{adminToken}}
+
+### 创建 Crontab 调度（每天凌晨2点）
+POST {{baseUrl}}{{apiPrefix}}/admin/schedules/crontabs
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "minute": "0",
+    "hour": "2",
+    "day_of_week": "*",
+    "day_of_month": "*",
+    "month_of_year": "*",
+    "timezone": "Asia/Shanghai"
+}
+
+### 创建 Crontab 调度（每周一早上9点）
+POST {{baseUrl}}{{apiPrefix}}/admin/schedules/crontabs
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "minute": "0",
+    "hour": "9",
+    "day_of_week": "1",
+    "day_of_month": "*",
+    "month_of_year": "*",
+    "timezone": "Asia/Shanghai"
+}
+
+### 删除 Crontab 调度
+DELETE {{baseUrl}}{{apiPrefix}}/admin/schedules/crontabs/1
+Authorization: Bearer {{adminToken}}
+
+
+# ============================================================================
+# 定时任务管理
+# ============================================================================
+
+### 获取定时任务列表
+# GET {{baseUrl}}{{apiPrefix}}/admin/tasks?skip=0&limit=20
+GET {{baseUrl}}{{apiPrefix}}/admin/tasks?page=1&page_size=20
+Authorization: Bearer {{adminToken}}
+
+### 获取已启用的定时任务
+GET {{baseUrl}}{{apiPrefix}}/admin/tasks?enabled=true
+Authorization: Bearer {{adminToken}}
+
+### 获取已禁用的定时任务
+GET {{baseUrl}}{{apiPrefix}}/admin/tasks?enabled=false
+Authorization: Bearer {{adminToken}}
+
+### 创建定时任务（使用间隔调度）
+POST {{baseUrl}}{{apiPrefix}}/admin/tasks
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "name": "test-hello-world",
+    "task": "celery_app.tasks.test_tasks.hello_world",
+    "interval_id": 1,
+    "args": "[]",
+    "kwargs": "{}",
+    "enabled": true,
+    "description": "测试任务 - 打印 Hello World"
+}
+
+### 创建定时任务（使用 Crontab 调度）
+POST {{baseUrl}}{{apiPrefix}}/admin/tasks
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "name": "daily-hello-world",
+    "task": "celery_app.tasks.test_tasks.hello_world",
+    "crontab_id": 1,
+    "args": "[]",
+    "kwargs": "{}",
+    "enabled": true,
+    "description": "每日任务 - 打印 Hello World"
+}
+
+### 获取定时任务详情
+GET {{baseUrl}}{{apiPrefix}}/admin/tasks/1
+Authorization: Bearer {{adminToken}}
+
+### 更新定时任务
+PUT {{baseUrl}}{{apiPrefix}}/admin/tasks/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "description": "更新后的描述",
+    "enabled": true
+}
+
+### 启用定时任务
+POST {{baseUrl}}{{apiPrefix}}/admin/tasks/1/enable
+Authorization: Bearer {{adminToken}}
+
+### 禁用定时任务
+POST {{baseUrl}}{{apiPrefix}}/admin/tasks/1/disable
+Authorization: Bearer {{adminToken}}
+
+### 立即执行任务
+POST {{baseUrl}}{{apiPrefix}}/admin/tasks/1/run
+Authorization: Bearer {{adminToken}}
+
+### 删除定时任务
+DELETE {{baseUrl}}{{apiPrefix}}/admin/tasks/1
+Authorization: Bearer {{adminToken}}
+
+
+# ============================================================================
+# 任务执行结果
+# ============================================================================
+
+### 获取任务执行结果列表
+GET {{baseUrl}}{{apiPrefix}}/admin/results?skip=0&limit=20
+Authorization: Bearer {{adminToken}}
+
+### 按任务名称筛选结果
+GET {{baseUrl}}{{apiPrefix}}/admin/results?task_name=celery_app.tasks.test_tasks.hello_world
+Authorization: Bearer {{adminToken}}
+
+### 按状态筛选结果
+GET {{baseUrl}}{{apiPrefix}}/admin/results?status=SUCCESS
+Authorization: Bearer {{adminToken}}
+
+### 获取任务执行结果详情（使用 task_id）
+GET {{baseUrl}}{{apiPrefix}}/admin/results/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+Authorization: Bearer {{adminToken}}
+
+### 清理旧的任务结果（保留最近7天）
+DELETE {{baseUrl}}{{apiPrefix}}/admin/results/cleanup?days=7
+Authorization: Bearer {{adminToken}}
+
+
+# ============================================================================
+# 统计信息
+# ============================================================================
+
+### 获取任务统计信息
+GET {{baseUrl}}{{apiPrefix}}/admin/statistics
+Authorization: Bearer {{adminToken}}
+
+
+# ============================================================================
+# 可用任务列表
+# ============================================================================
+
+### 获取系统中可用的 Celery 任务
+GET {{baseUrl}}{{apiPrefix}}/admin/available-tasks
+Authorization: Bearer {{adminToken}}
