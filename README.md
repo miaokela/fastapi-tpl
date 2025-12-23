@@ -1,4 +1,4 @@
-# FastAPI Base
+# FastAPI TPL
 
 一个功能完整的 FastAPI 基础项目模板，集成了用户认证、定时任务管理（类似 django-celery-beat）、Admin 管理后台等核心功能。
 
