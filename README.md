@@ -1,5 +1,13 @@
 # FastAPI TPL
 
+## 🖼️ Admin 管理后台预览
+
+<div align="center">
+  <img src="imgs/1-用户管理.png" alt="用户管理" width="800">
+  <img src="imgs/1-定时任务.png" alt="定时任务" width="800">
+  <img src="imgs/1-日志查询.png" alt="日志查询" width="800">
+</div>
+
 一个功能完整的 FastAPI 基础项目模板，集成了用户认证、定时任务管理（类似 django-celery-beat）、Admin 管理后台等核心功能。
 
 ## ✨ 特性
