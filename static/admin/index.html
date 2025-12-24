@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>后台管理系统</title>
     <link rel="stylesheet" href="/static/admin/css/style.css">
+    <link rel="stylesheet" href="/static/admin/css/glassmorphism.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- 浮动气泡背景效果 -->
+    <div class="floating-bubbles">
+        <div class="bubble" style="width: 100px; height: 100px; left: 10%; top: 20%; animation-delay: 0s;"></div>
+        <div class="bubble" style="width: 150px; height: 150px; left: 70%; top: 60%; animation-delay: 2s;"></div>
+        <div class="bubble" style="width: 80px; height: 80px; left: 40%; top: 40%; animation-delay: 4s;"></div>
+        <div class="bubble" style="width: 120px; height: 120px; left: 85%; top: 10%; animation-delay: 6s;"></div>
+        <div class="bubble" style="width: 90px; height: 90px; left: 25%; top: 70%; animation-delay: 8s;"></div>
+    </div>
     <!-- 登录页面 -->
     <div id="login-page" class="login-container">
         <div class="login-box">
@@ -120,17 +129,17 @@
                     </div>
                     <div class="search-bar">
                         <input type="text" id="user-search" placeholder="搜索用户...">
-                        <select id="user-status-filter">
+                        <div class="custom-select-wrapper"><select id="user-status-filter">
                             <option value="">全部状态</option>
                             <option value="true">激活</option>
                             <option value="false">禁用</option>
-                        </select>
+                        </select></div>
                         <button id="user-search-btn" class="btn btn-secondary">
                             <i class="fas fa-search"></i>
                             搜索
                         </button>
                     </div>
-                    <div class="table-container">
+                    <div class="table-container glass-card">
                         <table class="data-table">
                             <thead>
                                 <tr>
@@ -161,17 +170,17 @@
                         </button>
                     </div>
                     <div class="search-bar">
-                        <select id="task-status-filter">
+                        <div class="custom-select-wrapper"><select id="task-status-filter">
                             <option value="">全部状态</option>
                             <option value="true">启用</option>
                             <option value="false">禁用</option>
-                        </select>
+                        </select></div>
                         <button id="task-search-btn" class="btn btn-secondary">
                             <i class="fas fa-search"></i>
                             筛选
                         </button>
                     </div>
-                    <div class="table-container">
+                    <div class="table-container glass-card">
                         <table class="data-table">
                             <thead>
                                 <tr>
@@ -208,7 +217,7 @@
                                 添加间隔
                             </button>
                         </div>
-                        <div class="table-container">
+                        <div class="table-container glass-card">
                             <table class="data-table">
                                 <thead>
                                     <tr>
@@ -234,7 +243,7 @@
                                 添加Crontab
                             </button>
                         </div>
-                        <div class="table-container">
+                        <div class="table-container glass-card">
                             <table class="data-table">
                                 <thead>
                                     <tr>
@@ -266,18 +275,18 @@
                     </div>
                     <div class="search-bar">
                         <input type="text" id="result-task-name" placeholder="任务名称...">
-                        <select id="result-status-filter">
+                        <div class="custom-select-wrapper"><select id="result-status-filter">
                             <option value="">全部状态</option>
                             <option value="SUCCESS">成功</option>
                             <option value="FAILURE">失败</option>
                             <option value="PENDING">等待中</option>
-                        </select>
+                        </select></div>
                         <button id="result-search-btn" class="btn btn-secondary">
                             <i class="fas fa-search"></i>
                             搜索
                         </button>
                     </div>
-                    <div class="table-container">
+                    <div class="table-container glass-card">
                         <table class="data-table">
                             <thead>
                                 <tr>
@@ -305,12 +314,12 @@
                     
                     <div class="log-query-container">
                         <!-- 文件选择和查询表单 -->
-                        <div class="query-panel">
+                        <div class="query-panel glass-card">
                             <div class="form-group">
                                 <label for="log-file-select">日志文件:</label>
-                                <select id="log-file-select">
+                                <div class="custom-select-wrapper"><select id="log-file-select">
                                     <option value="">-- 选择日志文件 --</option>
-                                </select>
+                                </select></div>
                             </div>
                             
                             <div class="form-group">
@@ -345,7 +354,7 @@
                         </div>
                         
                         <!-- 查询结果 -->
-                        <div class="results-panel">
+                        <div class="results-panel glass-card">
                             <div id="log-results" class="log-results">
                                 <p class="no-data">请选择日志文件并执行查询</p>
                             </div>
@@ -358,7 +367,7 @@
 
     <!-- 日志详情模态框 -->
     <div id="log-detail-modal" class="modal">
-        <div class="modal-content log-detail-modal">
+        <div class="modal-content log-detail-modal glass-card">
             <div class="modal-header">
                 <h3>日志详情</h3>
                 <button class="modal-close">&times;</button>
@@ -371,7 +380,7 @@
 
     <!-- 模态框 -->
     <div id="modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass-card">
             <div class="modal-header">
                 <h3 id="modal-title">标题</h3>
                 <button class="modal-close">&times;</button>
