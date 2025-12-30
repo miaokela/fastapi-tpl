@@ -53,7 +53,6 @@
         <!-- 侧边栏 -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <i class="fas fa-cog"></i>
                 <span>后台管理系统</span>
             </div>
             <nav class="sidebar-nav">
@@ -122,9 +121,9 @@
                 <div id="users-page" class="page-content active">
                     <div class="page-header">
                         <h3>用户列表</h3>
-                        <button id="add-user-btn" class="btn btn-primary">
+                        <button id="add-user-btn" class="btn btn-compact btn-primary">
                             <i class="fas fa-plus"></i>
-                            添加用户
+                            新增用户
                         </button>
                     </div>
                     <div class="search-bar">
@@ -134,7 +133,7 @@
                             <option value="true">激活</option>
                             <option value="false">禁用</option>
                         </select></div>
-                        <button id="user-search-btn" class="btn btn-secondary">
+                        <button id="user-search-btn" class="btn btn-compact btn-secondary">
                             <i class="fas fa-search"></i>
                             搜索
                         </button>
@@ -164,9 +163,9 @@
                 <div id="tasks-page" class="page-content">
                     <div class="page-header">
                         <h3>定时任务列表</h3>
-                        <button id="add-task-btn" class="btn btn-primary">
+                        <button id="add-task-btn" class="btn btn-compact btn-primary">
                             <i class="fas fa-plus"></i>
-                            添加任务
+                            新增任务
                         </button>
                     </div>
                     <div class="search-bar">
@@ -175,8 +174,8 @@
                             <option value="true">启用</option>
                             <option value="false">禁用</option>
                         </select></div>
-                        <button id="task-search-btn" class="btn btn-secondary">
-                            <i class="fas fa-search"></i>
+                        <button id="task-search-btn" class="btn btn-compact btn-secondary">
+                            <i class="fas fa-filter"></i>
                             筛选
                         </button>
                     </div>
@@ -212,9 +211,9 @@
                     <div id="intervals-tab" class="tab-content active">
                         <div class="page-header">
                             <h3>间隔调度列表</h3>
-                            <button id="add-interval-btn" class="btn btn-primary">
+                            <button id="add-interval-btn" class="btn btn-compact btn-primary">
                                 <i class="fas fa-plus"></i>
-                                添加间隔
+                                新增间隔
                             </button>
                         </div>
                         <div class="table-container glass-card">
@@ -238,9 +237,9 @@
                     <div id="crontabs-tab" class="tab-content">
                         <div class="page-header">
                             <h3>Crontab调度列表</h3>
-                            <button id="add-crontab-btn" class="btn btn-primary">
+                            <button id="add-crontab-btn" class="btn btn-compact btn-primary">
                                 <i class="fas fa-plus"></i>
-                                添加Crontab
+                                新增Crontab
                             </button>
                         </div>
                         <div class="table-container glass-card">
@@ -268,7 +267,7 @@
                 <div id="results-page" class="page-content">
                     <div class="page-header">
                         <h3>任务执行记录</h3>
-                        <button id="cleanup-results-btn" class="btn btn-danger">
+                        <button id="cleanup-results-btn" class="btn btn-compact btn-danger">
                             <i class="fas fa-trash"></i>
                             清理记录
                         </button>
@@ -281,7 +280,7 @@
                             <option value="FAILURE">失败</option>
                             <option value="PENDING">等待中</option>
                         </select></div>
-                        <button id="result-search-btn" class="btn btn-secondary">
+                        <button id="result-search-btn" class="btn btn-compact btn-secondary">
                             <i class="fas fa-search"></i>
                             搜索
                         </button>
@@ -330,23 +329,23 @@
                             <div class="query-examples">
                                 <p><strong>查询示例:</strong></p>
                                 <div class="examples-list">
-                                    <button class="example-btn" data-filter=".">查看所有记录</button>
-                                    <button class="example-btn" data-filter="select(.created_at | contains(&quot;2025-12-23&quot;))">今天的日志</button>
-                                    <button class="example-btn" data-filter="select(.message | contains(&quot;成功&quot;))">模糊查询-成功</button>
-                                    <button class="example-btn" data-filter="select(has(&quot;user_id&quot;) and .user_id == 123)">特定用户查询</button>
-                                    <button class="example-btn" data-filter="group_by(.message) | map({message: .[0].message, count: length})">按消息分组统计</button>
-                                    <button class="example-btn" data-filter="select(.created_at >= &quot;2025-12-23 10:00&quot; and .created_at <= &quot;2025-12-23 11:00&quot;)">时间范围查询</button>
-                                    <button class="example-btn" data-filter="select(has(&quot;operation&quot;) and .operation == &quot;INSERT&quot;)">数据库INSERT操作</button>
-                                    <button class="example-btn" data-filter="select(has(&quot;duration_ms&quot;) and .duration_ms > 10) | length">统计耗时大于10ms的操作数</button>
+                                    <button class="btn-example" data-filter="."><i class="fas fa-eye"></i>查看所有记录</button>
+                                    <button class="btn-example" data-filter="select(.created_at | contains(&quot;2025-12-23&quot;))"><i class="fas fa-calendar-day"></i>今天的日志</button>
+                                    <button class="btn-example" data-filter="select(.message | contains(&quot;成功&quot;))"><i class="fas fa-check-circle"></i>模糊查询-成功</button>
+                                    <button class="btn-example" data-filter="select(has(&quot;user_id&quot;) and .user_id == 123)"><i class="fas fa-user"></i>特定用户查询</button>
+                                    <button class="btn-example" data-filter="group_by(.message) | map({message: .[0].message, count: length})"><i class="fas fa-chart-bar"></i>按消息分组统计</button>
+                                    <button class="btn-example" data-filter="select(.created_at >= &quot;2025-12-23 10:00&quot; and .created_at <= &quot;2025-12-23 11:00&quot;)"><i class="fas fa-clock"></i>时间范围查询</button>
+                                    <button class="btn-example" data-filter="select(has(&quot;operation&quot;) and .operation == &quot;INSERT&quot;)"><i class="fas fa-database"></i>数据库INSERT操作</button>
+                                    <button class="btn-example" data-filter="select(has(&quot;duration_ms&quot;) and .duration_ms > 10) | length"><i class="fas fa-stopwatch"></i>统计耗时大于10ms的操作数</button>
                                 </div>
                             </div>
                             
                             <div class="form-actions">
-                                <button id="log-query-btn" class="btn btn-primary">
+                                <button id="log-query-btn" class="btn btn-compact btn-primary">
                                     <i class="fas fa-search"></i>
                                     执行查询
                                 </button>
-                                <button id="log-clear-btn" class="btn btn-secondary">
+                                <button id="log-clear-btn" class="btn btn-compact btn-secondary">
                                     <i class="fas fa-times"></i>
                                     清空
                                 </button>
