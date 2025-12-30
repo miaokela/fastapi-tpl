@@ -68,7 +68,7 @@ class DatabaseScheduleEntry(ScheduleEntry):
         
         # 处理 last_run_at
         # 当 last_run_at 为空时，设为昨天，让 celery crontab 的 is_due 返回 True
-        # 但我们会在 is_due() 中额外判断是否真正到了触发时间（60秒阈值）
+        # 但我们会在 is_due() 中额外判断是否真正到了触发时间（1秒阈值）
         if not task_model.last_run_at:
             task_model.last_run_at = now_utc() - timedelta(days=1)
         
@@ -133,8 +133,8 @@ class DatabaseScheduleEntry(ScheduleEntry):
         # logger.info(f"[IS_DUE] Task {self.name}: is_due={is_due}, next_time={next_time_to_run:.0f}s, last_run_at={self.last_run_at}")
         
         # 关键修复：celery beat 在 is_due=True 时会立即执行，不管 next_time
-        # 所以我们需要在这里判断：如果 next_time > 10秒，说明还没到真正的触发分钟，不应该执行
-        if is_due and next_time_to_run > 10:
+        # 所以我们需要在这里判断：如果 next_time > 1秒，说明还没到真正的触发时间，不应该执行
+        if is_due and next_time_to_run > 1:
             # 还没到触发时间，返回 False，让 beat 继续等待
             # logger.info(f"[IS_DUE] Not yet due for {self.name}, waiting {next_time_to_run:.0f}s")
             return schedules.schedstate(False, min(next_time_to_run, 5))  # 最多等 5 秒后再检查
