@@ -131,14 +131,15 @@ class DatabaseScheduleEntry(ScheduleEntry):
         # 5. 调用 Celery schedule 的 is_due 方法
         is_due, next_time_to_run = self.schedule.is_due(self.last_run_at)
         # logger.info(f"[IS_DUE] Task {self.name}: is_due={is_due}, next_time={next_time_to_run:.0f}s, last_run_at={self.last_run_at}")
-        
-        # 关键修复：celery beat 在 is_due=True 时会立即执行，不管 next_time
-        # 所以我们需要在这里判断：如果 next_time > 1秒，说明还没到真正的触发时间，不应该执行
-        if is_due and next_time_to_run > 1:
+
+        # 对于 crontab 调度，需要特殊处理
+        # crontab 在 is_due=True 时会立即执行，不管 next_time
+        # 所以如果 next_time > 1秒，说明还没到真正的触发时间
+        if self.task_model.crontab and is_due and next_time_to_run > 1:
             # 还没到触发时间，返回 False，让 beat 继续等待
             # logger.info(f"[IS_DUE] Not yet due for {self.name}, waiting {next_time_to_run:.0f}s")
             return schedules.schedstate(False, min(next_time_to_run, 5))  # 最多等 5 秒后再检查
-        
+
         return schedules.schedstate(is_due, next_time_to_run)
     
     def save(self):

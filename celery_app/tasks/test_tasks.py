@@ -13,6 +13,32 @@ def hello_world():
     return "Hello World!"
 
 
+@celery_app.task(name="celery_app.tasks.test_tasks.test_args_kwargs")
+def test_args_kwargs(*args, **kwargs):
+    """测试 args 和 kwargs 参数传入并打印"""
+    print("=" * 50)
+    print("测试任务: test_args_kwargs")
+    print(f"当前时间: {datetime.now()}")
+    print("-" * 50)
+    print(f"Args 参数 (位置参数): {args}")
+    print(f"Args 类型: {type(args)}")
+    print(f"Args 长度: {len(args)}")
+    for i, arg in enumerate(args):
+        print(f"  args[{i}] = {arg} (类型: {type(arg).__name__})")
+    print("-" * 50)
+    print(f"Kwargs 参数 (关键字参数): {kwargs}")
+    print(f"Kwargs 类型: {type(kwargs)}")
+    print(f"Kwargs 数量: {len(kwargs)}")
+    for key, value in kwargs.items():
+        print(f"  kwargs['{key}'] = {value} (类型: {type(value).__name__})")
+    print("=" * 50)
+    return {
+        "args": list(args),
+        "kwargs": kwargs,
+        "timestamp": datetime.now().isoformat()
+    }
+
+
 @celery_app.task(name="celery_app.tasks.test_tasks.revoke_api_func_for_backend")
 def revoke_api_func_for_backend(method: str, url: str, json: dict = None, headers: dict = None):
     """

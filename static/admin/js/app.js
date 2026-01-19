@@ -7,6 +7,7 @@
 // ============================================
 let currentPage = 'users';
 let currentUser = null;
+let currentEditingTaskId = null;  // 当前正在编辑的任务ID
 
 // 分页状态 (使用 page 页码，从1开始)
 const pagination = {
@@ -186,18 +187,6 @@ async function loadUsers(page = 1) {
 
 function renderUsersTable(users) {
     const tbody = document.getElementById('users-table-body');
-    
-    if (!users || users.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="8" class="empty-state">
-                    <i class="fas fa-users"></i>
-                    <p>暂无用户数据</p>
-                </td>
-            </tr>
-        `;
-        return;
-    }
     
     tbody.innerHTML = users.map(user => `
         <tr>
@@ -610,6 +599,9 @@ function bindScheduleTypeSwitch() {
 
 // 编辑任务
 async function editTask(taskId) {
+    // 保存当前正在编辑的任务ID
+    currentEditingTaskId = taskId;
+
     try {
         const [taskResp, intervalsResp, crontabsResp] = await Promise.all([
             TaskAPI.get(taskId),
@@ -778,30 +770,27 @@ async function editSelectedInterval() {
             showToast('未找到所选间隔调度', 'error');
             return;
         }
-        
-        // 保存当前模态框内容
-        const previousModalContent = document.querySelector('.modal-content').innerHTML;
-        const previousModalTitle = document.querySelector('.modal-header h3').textContent;
-        
+
         showEditIntervalForm(interval.id, interval.every, interval.period);
-        
-        // 修改表单提交后恢复上一个模态框
+
+        // 修改表单提交后只关闭二级弹窗，不关闭任务编辑弹窗
         const form = document.getElementById('edit-interval-form');
-        const originalSubmit = form.onsubmit;
         form.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            
+
             try {
                 await ScheduleAPI.intervals.update(interval.id, {
                     every: parseInt(formData.get('every')),
                     period: formData.get('period'),
                 });
                 showToast('间隔调度更新成功', 'success');
-                // 重新打开任务编辑
+                // 只关闭二级弹窗
                 closeModal();
+                // 重新打开任务编辑弹窗
+                editTask(currentEditingTaskId);
+                // 刷新任务列表
                 loadTasks();
-                loadIntervals();
             } catch (error) {
                 showToast('更新失败: ' + error.message, 'error');
             }
@@ -830,13 +819,13 @@ async function editSelectedCrontab() {
         }
         
         showEditCrontabForm(crontab);
-        
-        // 修改表单提交后关闭模态框
+
+        // 修改表单提交后只关闭二级弹窗，不关闭任务编辑弹窗
         const form = document.getElementById('edit-crontab-form');
         form.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            
+
             try {
                 await ScheduleAPI.crontabs.update(crontab.id, {
                     minute: formData.get('minute'),
@@ -847,9 +836,12 @@ async function editSelectedCrontab() {
                     timezone: formData.get('timezone'),
                 });
                 showToast('Crontab调度更新成功', 'success');
+                // 只关闭二级弹窗
                 closeModal();
+                // 重新打开任务编辑弹窗
+                editTask(currentEditingTaskId);
+                // 刷新任务列表
                 loadTasks();
-                loadCrontabs();
             } catch (error) {
                 showToast('更新失败: ' + error.message, 'error');
             }
@@ -1271,19 +1263,6 @@ async function loadResults(page = 1) {
 
 function renderResultsTable(results) {
     const tbody = document.getElementById('results-table-body');
-    
-    if (!results || results.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7" class="empty-state">
-                    <i class="fas fa-list-alt"></i>
-                    <p>暂无执行记录</p>
-                </td>
-            </tr>
-        `;
-        return;
-    }
-    
     tbody.innerHTML = results.map(result => `
         <tr>
             <td><code>${result.task_id.substring(0, 8)}...</code></td>
