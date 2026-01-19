@@ -2,6 +2,7 @@ from typing import Optional
 from fastapi import Depends, HTTPException, status, Request
 from app.core.security import verify_token
 from app.models.models import User
+from app.utils.sql_client import sql_client
 
 
 async def get_current_user(request: Request) -> User:
@@ -59,3 +60,8 @@ async def get_current_superuser(current_user: User = Depends(get_current_user)) 
             detail="Not enough permissions"
         )
     return current_user
+
+
+async def get_sql_client():
+    """获取 SQL 客户端依赖"""
+    return sql_client

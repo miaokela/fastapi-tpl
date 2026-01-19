@@ -48,7 +48,15 @@ class Settings(BaseSettings):
     # 日志配置
     LOG_LEVEL: str = "INFO"
     LOG_FILE: str = "app.log"
-    
+
+    # SQL 管理配置
+    SQL_FILE_PATH: str = "app/sql"              # SQL 文件目录
+    SQL_PAGE_PARAM: str = "page"                # 分页参数名
+    SQL_PAGE_SIZE_PARAM: str = "page_size"      # 每页大小参数名
+    SQL_PRINT_SQL: bool = True                  # 是否打印执行的 SQL
+    SQL_AUTO_PRELOAD: bool = True               # 启动时自动预加载 SQL
+    SQL_LOGIC_DELETE_FLAG: str = "delete_flag"  # 逻辑删除字段名
+
     class Config:
         env_file = ".env"
         case_sensitive = True

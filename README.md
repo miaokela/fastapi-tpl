@@ -44,6 +44,8 @@ fastapi-base/
 │   │   ├── helpers.py      # 辅助函数
 │   │   ├── redis_client.py # Redis 客户端
 │   │   ├── responses.py    # 响应格式
+│   │   ├── sql_loader.py   # SQL 加载器
+│   │   ├── sql_client.py   # SQL 客户端
 │   │   └── structured_logger.py  # 结构化日志
 │   ├── views/              # 视图控制器
 │   │   ├── user_views.py   # 用户视图
@@ -134,6 +136,151 @@ sqlite3 default_db.sqlite3 < init_schema.sql
 - **ReDoc 文档**: http://localhost:8000/redoc
 - **Admin 管理后台**: http://localhost:8000/admin
 - **健康检查**: http://localhost:8000/health
+
+---
+
+## 🔍 SQL 查询管理
+
+本项目集成了基于 YAML 文件的 SQL 查询管理系统，方便管理复杂 SQL 查询。
+
+### 核心特性
+
+- **YAML 文件管理**: SQL 语句存储在 `app/sql/` 目录的 YAML 文件中
+- **SQL ID 规范**: 使用 `模块.文件.操作名` 格式引用 SQL
+- **Jinja2 模板**: 支持动态 SQL 和条件渲染
+- **分页支持**: 自动处理分页参数（`page`、`page_size`）
+- **条件操作符**: 支持 `__gt`、`__gte`、`__lt`、`__lte`、`__like`、`__in`、`__isnull`、`__between`
+- **异步执行**: 基于 Tortoise ORM 的异步 SQL 执行
+
+### SQL 文件结构
+
+```
+app/sql/
+└── user/
+    └── index.yml          # SQL ID: user.index.fetch_by_id
+```
+
+### YAML 文件示例
+
+```yaml
+# app/sql/user/index.yml
+fetch_by_id: |
+  SELECT * FROM users WHERE id = :user_id
+
+list_by_age: |
+  SELECT * FROM users
+  WHERE age >= :min_age
+  {% if max_age %}
+  AND age <= :max_age
+  {% endif %}
+  ORDER BY created_at DESC
+```
+
+### 使用方式
+
+#### 1. 基本查询
+
+```python
+from fastapi import Depends, APIRouter
+from app.utils.sql_client import SQLClient
+from app.core.deps import get_sql_client
+
+router = APIRouter()
+
+@router.get("/users/{user_id}")
+async def get_user(
+    user_id: int,
+    sql: SQLClient = Depends(get_sql_client)
+):
+    """查询单个用户"""
+    user = await sql.select_one(
+        sql_id="user.index.fetch_by_id",
+        params={"user_id": user_id}
+    )
+    return {"data": user}
+```
+
+#### 2. 分页查询
+
+```python
+@router.get("/users/")
+async def list_users(
+    page: int = 1,
+    page_size: int = 20,
+    sql: SQLClient = Depends(get_sql_client)
+):
+    """查询用户列表（带分页）"""
+    users = await sql.select_all(
+        sql_id="user.index.list_by_age",
+        params={"min_age": 18},
+        options={"page": page, "page_size": page_size}
+    )
+    return {"data": users}
+```
+
+#### 3. CRUD 操作
+
+```python
+# 创建数据
+user_id = await sql.execute_create(
+    table_name="users",
+    data={"username": "test", "email": "test@example.com"}
+)
+
+# 更新数据
+rows = await sql.execute_update(
+    table_name="users",
+    data={"email": "new@example.com"},
+    where={"id": 1}
+)
+
+# 删除数据
+rows = await sql.execute_delete(
+    table_name="users",
+    where={"id": 1}
+)
+```
+
+#### 4. 条件操作符
+
+```python
+# 支持的条件操作符
+users = await sql.select_all(
+    sql_id="user.index.list_by_age",
+    where={
+        "age__gte": 18,              # age >= 18
+        "age__lte": 60,              # age <= 60
+        "score__gt": 80,             # score > 80
+        "status__in": [1, 2, 3],     # status IN (1, 2, 3)
+        "name__like": "%张%",        # name LIKE '%张%'
+        "deleted__isnull": True,     # deleted IS NULL
+        "created_at__between": ["2024-01-01", "2024-12-31"]
+    }
+)
+```
+
+### 调试端点（仅 DEBUG 模式）
+
+| 方法 | 路径 | 描述 |
+|------|------|------|
+| GET | `/api/v1/debug/sql` | 获取所有 SQL ID 列表 |
+| GET | `/api/v1/debug/sql/{sql_id}` | 获取指定 SQL 的详细信息 |
+| GET | `/api/v1/debug/test/user` | 测试查询用户 ID 为 1 |
+
+### 配置说明
+
+在 `config/settings.py` 中可配置：
+
+```python
+# SQL 管理配置
+SQL_FILE_PATH: str = "app/sql"              # SQL 文件目录
+SQL_PAGE_PARAM: str = "page"                # 分页参数名
+SQL_PAGE_SIZE_PARAM: str = "page_size"      # 每页大小参数名
+SQL_PRINT_SQL: bool = True                  # 是否打印执行的 SQL
+SQL_AUTO_PRELOAD: bool = True               # 启动时自动预加载 SQL
+```
+
+---
 
 ## 🖥️ Admin 管理后台
 
@@ -438,6 +585,11 @@ def my_task(arg1, arg2):
 | SECRET_KEY | JWT 密钥 | 需修改 |
 | ACCESS_TOKEN_EXPIRE_MINUTES | Token 过期时间 | 30 |
 | ADMIN_ENABLED | 是否启用 Admin 系统 | True |
+| SQL_FILE_PATH | SQL 文件目录 | app/sql |
+| SQL_PAGE_PARAM | 分页参数名 | page |
+| SQL_PAGE_SIZE_PARAM | 每页大小参数名 | page_size |
+| SQL_PRINT_SQL | 是否打印执行的 SQL | True |
+| SQL_AUTO_PRELOAD | 启动时自动预加载 SQL | True |
 
 ## 📄 许可证
 
