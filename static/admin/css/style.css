@@ -1,5 +1,5 @@
 /* ============================================
-   科技感管理后台样式
+   科技感管理后台样式 - 大屏风格
    ============================================ */
 * {
     margin: 0;
@@ -8,53 +8,58 @@
 }
 
 :root {
-    /* 科技感配色 */
-    --primary-color: #00d4ff;
-    --primary-hover: #00a8cc;
-    --primary-glow: rgba(0, 212, 255, 0.4);
+    /* 大屏UI配色 - 深空黑+科技蓝 */
+    --primary-color: #00d9ff;
+    --primary-light: #00e5ff;
+    --primary-lighter: #00f0ff;
+    --primary-glow: rgba(0, 217, 255, 0.4);
     --secondary-color: #7c3aed;
     --secondary-glow: rgba(124, 58, 237, 0.4);
-    --success-color: #00ff88;
-    --success-glow: rgba(0, 255, 136, 0.4);
-    --warning-color: #ffaa00;
-    --warning-glow: rgba(255, 170, 0, 0.4);
-    --danger-color: #ff3366;
-    --danger-glow: rgba(255, 51, 102, 0.4);
-    --info-color: #00d4ff;
-    
-    /* 深色背景 */
-    --bg-dark: #0a0e17;
+    --success-color: #10B981;
+    --success-glow: rgba(16, 185, 129, 0.4);
+    --warning-color: #FCD34D;
+    --warning-glow: rgba(252, 211, 77, 0.4);
+    --danger-color: #EF4444;
+    --danger-glow: rgba(239, 68, 68, 0.4);
+    --info-color: #00d9ff;
+
+    /* 深空黑背景 */
+    --bg-dark: #0a192f;
     --bg-darker: #060911;
-    --bg-card: rgba(15, 23, 42, 0.8);
-    --bg-card-hover: rgba(30, 41, 59, 0.9);
-    
-    /* 边框和线条 */
-    --border-color: rgba(0, 212, 255, 0.2);
-    --border-glow: rgba(0, 212, 255, 0.5);
-    
+    --bg-deep: #1A237E;
+    --bg-card: rgba(30, 58, 138, 0.4);
+    --bg-card-light: rgba(224, 242, 254, 0.1);
+    --bg-card-hover: rgba(30, 58, 138, 0.6);
+
+    /* 边框和线条 - 浅蓝色科技感 */
+    --border-color: rgba(30, 58, 138, 0.4);
+    --border-glow: rgba(0, 217, 255, 0.5);
+
     /* 文字颜色 */
-    --text-primary: #e2e8f0;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    
-    /* 阴影 */
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.15);
-    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
-    
+    --text-primary: #FFFFFF;
+    --text-secondary: #a0a0a0;
+    --text-muted: #9CA3AF;
+    --text-dark: #1E3A8A;
+
+    /* 阴影 - 轻量化 */
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 20px rgba(0, 217, 255, 0.1);
+    --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3);
+
     /* 布局 */
     --sidebar-width: 260px;
     --header-height: 64px;
-    
-    /* 渐变 */
-    --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
-    --gradient-dark: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-    --gradient-card: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+
+    /* 渐变 - 深空科技感 */
+    --gradient-primary: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+    --gradient-dark: linear-gradient(180deg, #0a192f 0%, #1e3a8a 100%);
+    --gradient-card: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+    --gradient-glow: linear-gradient(135deg, #00d9ff 0%, #1e3a8a 100%);
 }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg-dark);
+    background: #0a192f;
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -68,10 +73,10 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+    background-image:
+        linear-gradient(rgba(0, 217, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 217, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
     pointer-events: none;
     z-index: -1;
 }
@@ -249,121 +254,148 @@ body::before {
 }
 
 /* ============================================
-   按钮样式
+   按钮样式 - 3D实物感
    ============================================ */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 12px 24px;
+    gap: 6px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 600;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    text-transform: none;
+    letter-spacing: 0;
     position: relative;
     overflow: hidden;
+    /* 3D效果 */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
+.btn:active {
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(1px);
 }
 
-.btn:hover::before {
-    left: 100%;
-}
-
+/* 主要按钮 - 蓝色系 */
 .btn-primary {
-    background: var(--gradient-primary);
-    color: white;
-    box-shadow: 0 4px 15px var(--primary-glow);
+    background: linear-gradient(180deg, #00d9ff 0%, #0099cc 100%);
+    color: #0a192f;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--primary-glow);
+    background: linear-gradient(180deg, #33ddff 0%, #00b3e6 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(0, 217, 255, 0.4);
 }
 
+/* 次要按钮 - 灰色系 */
 .btn-secondary {
-    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+    background: linear-gradient(180deg, #6B7280 0%, #4B5563 50%, #374151 100%);
     color: white;
-    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .btn-secondary:hover {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-    transform: translateY(-2px);
+    background: linear-gradient(180deg, #9CA3AF 0%, #6B7280 50%, #4B5563 100%);
 }
 
+/* 成功按钮 - 绿色系 */
 .btn-success {
-    background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
-    color: #0a0e17;
-    box-shadow: 0 4px 15px var(--success-glow);
+    background: linear-gradient(180deg, #10B981 0%, #059669 50%, #047857 100%);
+    color: white;
 }
 
 .btn-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--success-glow);
+    background: linear-gradient(180deg, #34D399 0%, #10B981 50%, #059669 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(16, 185, 129, 0.3);
 }
 
+/* 危险按钮 - 红色系 */
 .btn-danger {
-    background: linear-gradient(135deg, #ff3366 0%, #cc2952 100%);
+    background: linear-gradient(180deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
     color: white;
-    box-shadow: 0 4px 15px var(--danger-glow);
 }
 
 .btn-danger:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--danger-glow);
+    background: linear-gradient(180deg, #F87171 0%, #EF4444 50%, #DC2626 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(239, 68, 68, 0.3);
 }
 
+/* 警告按钮 - 黄色系 */
 .btn-warning {
-    background: linear-gradient(135deg, #ffaa00 0%, #cc8800 100%);
-    color: #0a0e17;
-    box-shadow: 0 4px 15px var(--warning-glow);
+    background: linear-gradient(180deg, #FCD34D 0%, #F59E0B 50%, #D97706 100%);
+    color: #1E3A8A;
 }
 
 .btn-warning:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--warning-glow);
+    background: linear-gradient(180deg, #FDE68A 0%, #FCD34D 50%, #F59E0B 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(252, 211, 77, 0.3);
 }
 
+/* 轮廓按钮 */
 .btn-outline {
-    background: transparent;
-    border: 1px solid var(--border-color);
+    background: linear-gradient(180deg, rgba(224, 242, 254, 0.15) 0%, rgba(224, 242, 254, 0.1) 100%);
     color: var(--text-secondary);
+    border: 1px solid var(--border-color);
 }
 
 .btn-outline:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    box-shadow: 0 0 20px var(--primary-glow);
+    background: linear-gradient(180deg, rgba(224, 242, 254, 0.25) 0%, rgba(224, 242, 254, 0.15) 100%);
+    color: var(--text-primary);
+    border-color: rgba(224, 242, 254, 0.5);
 }
 
 .btn-block {
     width: 100%;
 }
 
+/* 小按钮 */
 .btn-sm {
-    padding: 8px 14px;
-    font-size: 12px;
-    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 11px;
+    border-radius: 4px;
+    gap: 4px;
 }
 
+/* 图标按钮 */
 .btn-icon {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 8px;
+    gap: 4px;
+}
+
+/* 搜索/筛选按钮 - 浅色背景 */
+.btn-search {
+    background: linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 100%);
+    color: var(--text-dark);
+}
+
+.btn-search:hover {
+    background: linear-gradient(180deg, #E0F2FE 0%, #7DD3FC 50%, #38BDF8 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(224, 242, 254, 0.4);
 }
 
 /* 紧凑型按钮 - 用于新增、搜索、筛选等操作 */
@@ -371,47 +403,35 @@ body::before {
     padding: 6px 12px;
     font-size: 12px;
     font-weight: 500;
-    border-radius: 8px;
+    border-radius: 6px;
     gap: 6px;
     text-transform: none;
     letter-spacing: normal;
-    box-shadow: none;
     height: 32px;
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
-.btn-compact::before {
-    display: none;
-}
-
 .btn-compact.btn-primary {
-    background: rgba(0, 212, 255, 0.15);
-    color: var(--primary-color);
+    background: linear-gradient(180deg, rgba(224, 242, 254, 0.2) 0%, rgba(224, 242, 254, 0.15) 100%);
+    color: var(--text-primary);
     border: 1px solid var(--border-color);
 }
 
 .btn-compact.btn-primary:hover {
-    background: rgba(0, 212, 255, 0.25);
-    border-color: var(--primary-color);
-    box-shadow: 0 2px 8px var(--primary-glow);
-    transform: translateY(-1px);
+    background: linear-gradient(180deg, rgba(224, 242, 254, 0.3) 0%, rgba(224, 242, 254, 0.25) 100%);
+    border-color: rgba(224, 242, 254, 0.5);
 }
 
 .btn-compact.btn-secondary {
-    background: rgba(100, 116, 139, 0.1);
+    background: linear-gradient(180deg, rgba(107, 114, 128, 0.2) 0%, rgba(75, 85, 99, 0.15) 100%);
     color: var(--text-secondary);
-    border: 1px solid rgba(100, 116, 139, 0.2);
+    border: 1px solid var(--border-color);
 }
 
 .btn-compact.btn-secondary:hover {
-    background: rgba(100, 116, 139, 0.2);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    box-shadow: 0 2px 8px rgba(0, 212, 255, 0.15);
-    transform: translateY(-1px);
+    background: linear-gradient(180deg, rgba(107, 114, 128, 0.3) 0%, rgba(75, 85, 99, 0.25) 100%);
 }
 
 .btn-compact.btn-danger {
@@ -1125,8 +1145,60 @@ body::before {
 
 /* 操作按钮组 */
 .action-btns {
-    display: flex;
-    gap: 8px;
+    display: inline-flex;
+    gap: 0;
+}
+
+.action-btns .btn {
+    margin: 0;
+    border-radius: 0;
+    padding: 8px 12px;
+    position: relative;
+    border: none;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+        0 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.action-btns .btn:active {
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(1px);
+}
+
+.action-btns .btn:first-child {
+    border-radius: 6px 0 0 6px;
+}
+
+.action-btns .btn:last-child {
+    border-radius: 0 6px 6px 0;
+}
+
+.action-btns .btn:only-child {
+    border-radius: 6px;
+}
+
+.action-btns .btn-success {
+    background: linear-gradient(180deg, #10B981 0%, #059669 50%, #047857 100%);
+    color: white;
+}
+
+.action-btns .btn-secondary {
+    background: linear-gradient(180deg, #6B7280 0%, #4B5563 50%, #374151 100%);
+    color: white;
+}
+
+.action-btns .btn-danger {
+    background: linear-gradient(180deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
+    color: white;
+}
+
+.action-btns .btn-primary {
+    background: linear-gradient(180deg, #2563EB 0%, #1E3A8A 50%, #1E3A8A 100%);
+    color: white;
 }
 
 .text-success {
@@ -1235,7 +1307,6 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     z-index: 2000;
     overflow-y: auto;
@@ -1248,29 +1319,29 @@ body::before {
 }
 
 .modal-content {
-    background: var(--gradient-card);
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
+    border-radius: 16px;
     width: 100%;
     max-width: 520px;
     margin: 20px auto;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    border: 1px solid rgba(30, 58, 138, 0.5);
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.1);
     position: relative;
 }
 
 .modal-content::before {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: var(--gradient-primary);
-    border-radius: 22px;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.3) 0%, rgba(30, 58, 138, 0.3) 100%);
+    border-radius: 17px;
     z-index: -1;
-    opacity: 0.3;
-    filter: blur(15px);
+    opacity: 0.5;
+    filter: blur(10px);
     pointer-events: none;
 }
 
@@ -1320,6 +1391,87 @@ body::before {
     display: flex;
     justify-content: flex-end;
     gap: 14px;
+}
+
+/* 确保弹窗内的按钮也有3D效果 */
+.modal-footer .btn,
+.modal-body .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    /* 3D效果 */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.modal-footer .btn:active,
+.modal-body .btn:active {
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(1px);
+}
+
+/* 弹窗内的次要按钮 */
+.modal-footer .btn-secondary,
+.modal-body .btn-secondary {
+    background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%);
+    color: #a0a0a0;
+}
+
+.modal-footer .btn-secondary:hover,
+.modal-body .btn-secondary:hover {
+    background: linear-gradient(180deg, #2563eb 0%, #1e3a8a 100%);
+    color: #ffffff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 10px rgba(0, 217, 255, 0.2);
+}
+
+/* 弹窗内的主要按钮 */
+.modal-footer .btn-primary,
+.modal-body .btn-primary {
+    background: linear-gradient(180deg, #00d9ff 0%, #0099cc 100%);
+    color: #0a192f;
+}
+
+.modal-footer .btn-primary:hover,
+.modal-body .btn-primary:hover {
+    background: linear-gradient(180deg, #33ddff 0%, #00b3e6 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(0, 217, 255, 0.4);
+}
+
+/* 弹窗内的危险按钮 */
+.modal-footer .btn-danger,
+.modal-body .btn-danger {
+    background: linear-gradient(180deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
+    color: white;
+}
+
+.modal-footer .btn-danger:hover,
+.modal-body .btn-danger:hover {
+    background: linear-gradient(180deg, #F87171 0%, #EF4444 50%, #DC2626 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(239, 68, 68, 0.3);
 }
 
 /* ============================================
