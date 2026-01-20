@@ -11,16 +11,6 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
-# 检查虚拟环境
-if [ ! -d ".venv" ]; then
-    echo "创建虚拟环境..."
-    python3 -m venv .venv
-fi
-
-# 激活虚拟环境
-echo "激活虚拟环境..."
-source .venv/bin/activate
-
 # 升级pip
 echo "升级pip..."
 pip install --upgrade pip

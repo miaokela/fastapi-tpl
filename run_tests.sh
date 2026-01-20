@@ -4,9 +4,6 @@
 echo "🧪 运行 FastAPI 单元测试..."
 echo "================================"
 
-# 激活虚拟环境
-source .venv/bin/activate
-
 # 设置测试环境变量
 export DATABASE_URL="sqlite://:memory:"
 export REDIS_URL="redis://localhost:6379/0"

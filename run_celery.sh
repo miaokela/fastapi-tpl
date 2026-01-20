@@ -2,15 +2,6 @@
 
 echo "=== 启动Celery服务 ==="
 
-# 检查虚拟环境
-if [ ! -d ".venv" ]; then
-    echo "虚拟环境不存在，请先运行setup.sh"
-    exit 1
-fi
-
-# 激活虚拟环境
-source .venv/bin/activate
-
 # 启动选项
 case "$1" in
     "worker")

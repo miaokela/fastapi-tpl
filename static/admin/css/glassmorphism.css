@@ -2,45 +2,46 @@
    毛玻璃效果与简易卡片UI设计
    ============================================ */
 
-/* 增强毛玻璃效果 */
+/* 卡片3D效果样式 */
 .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.6) 100%);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 4px 6px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     position: relative;
-    transition: all 0.3s ease;
-}
-
-.glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    pointer-events: none;
-    z-index: 1;
+    transition: all 0.2s ease;
 }
 
 .glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    border-color: rgba(0, 212, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 6px 15px rgba(0, 0, 0, 0.25);
+    border-color: var(--primary-color);
+}
+
+.glass-card:active {
+    transform: translateY(1px);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* 更新登录框样式 */
 .login-box {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 8px 32px rgba(0, 0, 0, 0.3);
     width: 100%;
     max-width: 420px;
     position: relative;
@@ -48,106 +49,86 @@
     z-index: 1;
 }
 
-.login-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    pointer-events: none;
-    z-index: -1;
-}
-
 /* 更新侧边栏样式 */
 .sidebar {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border-right: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        4px 0 20px rgba(0, 0, 0, 0.1);
 }
 
 /* 更新顶部导航栏样式 */
 .top-header {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* 更新统计卡片样式 */
 .stat-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.6) 100%);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 4px 6px rgba(0, 0, 0, 0.2);
     padding: 28px;
     display: flex;
     align-items: center;
     gap: 20px;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    pointer-events: none;
-    z-index: 1;
+    transition: all 0.2s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    border-color: rgba(0, 212, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 6px 15px rgba(0, 0, 0, 0.25);
+    border-color: var(--primary-color);
+}
+
+.stat-card:active {
+    transform: translateY(1px);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* 更新表格容器样式 */
 .table-container {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 4px 6px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     position: relative;
-}
-
-.table-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    pointer-events: none;
-    z-index: 1;
 }
 
 /* 更新表单输入框样式 */
 .form-group input:not([type="checkbox"]):not([type="radio"]),
 .form-group textarea,
 .search-bar input {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 14, 23, 0.95) 100%);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     color: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    /* 3D 凹陷效果 */
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* 自定义下拉菜单容器样式 */
@@ -160,13 +141,11 @@
 /* 下拉菜单样式 */
 .form-group select,
 .search-bar select {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 14, 23, 0.95) 100%);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     color: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -174,6 +153,10 @@
     cursor: pointer;
     position: relative;
     z-index: 1;
+    /* 3D 凹陷效果 */
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* 自定义下拉箭头 */
@@ -200,9 +183,10 @@ select option {
 /* 下拉菜单展开时的样式 */
 .form-group select:focus,
 .search-bar select:focus {
-    background: rgba(255, 255, 255, 0.08);
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* 浏览器自动填充表单提示框样式 */
@@ -216,11 +200,10 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--text-primary) !important;
-    -webkit-box-shadow: 0 0 0px 1000px rgba(15, 23, 42, 0.8) inset !important;
+    /* 3D 凹陷效果 - 与输入框主题一致 */
+    -webkit-box-shadow: 0 0 0px 1000px rgba(10, 14, 23, 0.95) inset !important;
     transition: background-color 5000s ease-in-out 0s;
-    background-color: rgba(15, 23, 42, 0.8) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(10, 14, 23, 0.95) !important;
 }
 
 /* 自动填充下拉提示框样式 */
@@ -276,45 +259,63 @@ datalist option:hover {
 .form-group textarea:focus,
 .search-bar input:focus,
 .search-bar select:focus {
-    background: rgba(255, 255, 255, 0.08);
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* 更新模态框样式 */
 .modal-content {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 10px 40px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
 }
 
-.modal-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    pointer-events: none;
-    z-index: -1;
+/* 更新日志查询面板样式 */
+.log-query-container {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 180px);
+    min-height: 400px;
 }
 
-/* 更新日志查询面板样式 */
 .query-panel, .results-panel {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     padding: 24px;
     position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.query-panel {
+    flex: 0 0 320px;
+    min-width: 280px;
+}
+
+.query-panel .form-group,
+.query-panel .query-examples,
+.query-panel .form-actions {
+    flex-shrink: 0;
+}
+
+.query-panel > *:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.results-panel {
+    flex: 1;
     overflow: hidden;
 }
 
@@ -341,9 +342,11 @@ datalist option:hover {
     font-family: 'Courier New', monospace;
     font-size: 14px;
     color: var(--text-primary);
-    max-height: 500px;
     overflow-y: auto;
     position: relative;
+    flex: 1;
+    box-sizing: border-box;
+    min-height: 0;
 }
 
 /* 更新分页样式 */
@@ -355,37 +358,56 @@ datalist option:hover {
 }
 
 .pagination button {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(107, 114, 128, 0.2) 0%, rgba(75, 85, 99, 0.15) 100%);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     color: var(--text-primary);
     padding: 8px 12px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    /* 3D 效果 */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .pagination button:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 212, 255, 0.08) 100%);
     border-color: var(--primary-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 3px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.pagination button:active {
+    transform: translateY(1px);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .pagination button.active {
-    background: var(--gradient-primary);
+    background: linear-gradient(180deg, #00d9ff 0%, #0099cc 100%);
     border-color: transparent;
+    color: #0a192f;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
 }
 
 /* 更新选项卡样式 */
 .tabs {
     display: flex;
     margin-bottom: 24px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: linear-gradient(180deg, rgba(107, 114, 128, 0.1) 0%, rgba(75, 85, 99, 0.15) 100%);
     border-radius: 12px;
     padding: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .tab-btn {
@@ -396,44 +418,74 @@ datalist option:hover {
     border-radius: 8px;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    /* 3D 效果 */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.tab-btn:hover {
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+    color: var(--primary-color);
 }
 
 .tab-btn.active {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--primary-color);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    background: linear-gradient(180deg, #00d9ff 0%, #0099cc 100%);
+    color: #0a192f;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
 }
 
 /* 更新示例按钮样式 */
 .example-btn {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.08) 0%, rgba(0, 212, 255, 0.03) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.2);
     border-radius: 8px;
     color: var(--text-secondary);
     padding: 8px 12px;
     margin: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     font-size: 12px;
+    /* 3D 效果 */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .example-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 212, 255, 0.08) 100%);
     border-color: var(--primary-color);
     color: var(--primary-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 3px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.example-btn:active {
+    transform: translateY(1px);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* 更新Toast消息样式 */
 .toast {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 8px 32px rgba(0, 0, 0, 0.3);
     padding: 16px 20px;
     color: var(--text-primary);
     margin-bottom: 12px;
@@ -454,51 +506,62 @@ datalist option:hover {
     }
 }
 
-/* 增强按钮的毛玻璃效果 */
+/* 增强按钮的3D效果 */
 .btn {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
+    /* 3D 效果 */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-.btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
-    pointer-events: none;
-    z-index: 1;
+.btn:hover {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active {
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(1px);
 }
 
 .btn-primary {
-    background: rgba(0, 212, 255, 0.2);
-    border-color: var(--primary-color);
+    background: linear-gradient(180deg, #00d9ff 0%, #0099cc 100%);
+    border-color: transparent;
+    color: #0a192f;
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(180deg, #6B7280 0%, #4B5563 50%, #374151 100%);
+    border-color: transparent;
+    color: white;
 }
 
 .btn-success {
-    background: rgba(0, 255, 136, 0.2);
-    border-color: var(--success-color);
+    background: linear-gradient(180deg, #10B981 0%, #059669 50%, #047857 100%);
+    border-color: transparent;
+    color: white;
 }
 
 .btn-danger {
-    background: rgba(255, 51, 102, 0.2);
-    border-color: var(--danger-color);
+    background: linear-gradient(180deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
+    border-color: transparent;
+    color: white;
 }
 
 .btn-warning {
-    background: rgba(255, 170, 0, 0.2);
-    border-color: var(--warning-color);
+    background: linear-gradient(180deg, #FCD34D 0%, #F59E0B 50%, #D97706 100%);
+    border-color: transparent;
+    color: #1E3A8A;
 }
 
 /* 增强背景效果 */

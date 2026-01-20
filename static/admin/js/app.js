@@ -1380,9 +1380,9 @@ async function handleLogin(e) {
         document.getElementById('login-page').style.display = 'none';
         document.getElementById('admin-page').style.display = 'flex';
         document.getElementById('current-user').textContent = username;
-        
-        // 加载仪表板数据
-        loadDashboard();
+
+        // 加载用户列表
+        loadUsers();
     } catch (error) {
         errorDiv.textContent = error.message;
         errorDiv.style.display = 'block';
@@ -1469,7 +1469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('log-clear-btn').addEventListener('click', clearLogQuery);
     
     // 查询示例按钮事件
-    document.querySelectorAll('.example-btn').forEach(btn => {
+    document.querySelectorAll('.btn-example').forEach(btn => {
         btn.addEventListener('click', () => {
             document.getElementById('jq-filter').value = btn.dataset.filter;
         });
